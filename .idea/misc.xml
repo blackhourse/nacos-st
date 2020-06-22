@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-config-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-config-demo-profiles/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-config-demo-auto-refresh/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-config-demo-jasypt/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-config-demo-actuator/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-register-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/lab-44-nacos-config-demo-auto-refresh/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
