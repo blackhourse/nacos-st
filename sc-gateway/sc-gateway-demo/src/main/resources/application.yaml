@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: demo-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service #路由的编号
+          uri: lb://user-service #跳转的地址
+          predicates: # 断言，作为路由的匹配条件，对应 RouteDefinition 数组
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<remaining>.*), /${remaining} # 将 /user-service 前缀剔除
+        - id: order-service #路由的编号
+          uri: lb://order-service #跳转的地址
+          predicates: # 断言，作为路由的匹配条件，对应 RouteDefinition 数组
+            - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<remaining>.*), /${remaining} # 将 /user-service 前缀剔除
+    #与 Spring Cloud 注册中心的集成，对应 DiscoveryLocatorProperties 类
+    discovery:
+      locator:
+        enabled: true # 是否开启，默认为 false 关闭
+        url-expression: "'lb://' + serviceId" # 路由的目标地址的表达式，默认为 "'lb://' + serviceId"
+      # Nacos 作为注册中心的配置项
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: order-service, user-service
