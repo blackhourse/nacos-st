@@ -5,6 +5,10 @@ spring:
     name: demo-gateway
   cloud:
     gateway:
+      route:
+        config:
+          data-id:
+          group: DEFAULT_GROUP
       routes:
         - id: user-service #路由的编号
           uri: lb://user-service #跳转的地址

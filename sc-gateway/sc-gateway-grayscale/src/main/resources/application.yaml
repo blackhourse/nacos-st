@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: grayscale-gateway-application
+  cloud:
+    gateway:
+      routes:
+        - id: user-service-prod
+          uri: http://www.iocoder.cn #跳转的地址
+          predicates:   # 断言，作为路由的匹配条件，对应 RouteDefinition 数组
+            - Path=/**
+            - Weight=user-service, 90   #权重比例   跳转到该服务的比例为90%
+        - id: user-service-canary
+          uri: https://www.oschina.net
+          predicates:
+            - Path=/**
+            - Weight=user-service, 10      #权重比例   跳转到该服务的比例为10%

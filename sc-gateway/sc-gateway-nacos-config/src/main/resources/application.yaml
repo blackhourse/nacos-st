@@ -6,3 +6,9 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
+        refresh-enabled: true
+    #与 Spring Cloud 注册中心的集成，对应 DiscoveryLocatorProperties 类
+    discovery:
+      locator:
+        enabled: true # 是否开启，默认为 false 关闭
+#        url-expression: "'lb://' + serviceId" # 路由的目标地址的表达式，默认为 "'lb://' + serviceId"

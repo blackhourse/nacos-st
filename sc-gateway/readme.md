@@ -6,3 +6,4 @@
 ----- sc-userservice 用户服务
 ----- sc-orderservice 用户服务
 ----- sc gateway-nacos-config 基于配置中心 Nacos 实现动态路由
+----- sc gateway-grayscale 灰度发布的权重的设置

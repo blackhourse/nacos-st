@@ -16,5 +16,7 @@
         <module>sc-userservice</module>
         <module>sc-orderservice</module>
         <module>sc-gateway-nacos-config</module>
+        <module>sc-gateway-grayscale</module>
+        <module>sc-gateway-filter</module>
     </modules>
 </project>
