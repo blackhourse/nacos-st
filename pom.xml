@@ -16,6 +16,7 @@
         <module>nacos-springcloudAlibaba</module>
         <module>nacos-config-demo-auto-refresh</module>
         <module>sc-gateway</module>
+        <module>sp-demo</module>
     </modules>
 
 </project>
