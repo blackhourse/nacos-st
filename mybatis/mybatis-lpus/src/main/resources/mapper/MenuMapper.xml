@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.boot.mybatisplus.dao.MenuMapper">
+    <resultMap id="BaseResultMap" type="cn.boot.mybatisplus.dataobject.Menu">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="node_type" jdbcType="TINYINT" property="nodeType"/>
+        <result column="icon_url" jdbcType="VARCHAR" property="iconUrl"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="link_url" jdbcType="VARCHAR" property="linkUrl"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, menu_code, parent_id, node_type, icon_url, sort, link_url, level, path, 
+    is_delete
+  </sql>
+    <select id="selectAuthByUserIdAndMenuCode" resultType="java.lang.Integer">
+        SELECT
+            count(tb_menu.id)
+        FROM
+            tb_menu
+        WHERE
+            id IN ( SELECT menu_id FROM tb_role_menu WHERE role_id IN ( SELECT role_id FROM tb_user_role WHERE user_id = #{userId} ) )
+            and menu_code = #{menuCode}
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: mybatis
+  profiles:
+    active: dev
+swagger2:
+  apiInfo:
+    title: mybatis-plus
+    version: 1.0
+    description: mybatis-plus
+    contact:
+      name: blackcat
+      url: http://127.0.0.1
+      email: xxx
+  apis:
+    basePackage: cn.boot.mybatisplus.controller
