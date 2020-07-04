@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.boot.mybatisplus.dao.ExceptionLogMapper">
+    <resultMap id="BaseResultMap" type="cn.boot.mybatisplus.dataobject.ExceptionLog">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="trace_id" jdbcType="VARCHAR" property="traceId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_type" jdbcType="TINYINT" property="userType"/>
+        <result column="application_name" jdbcType="VARCHAR" property="applicationName"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="query_string" jdbcType="VARCHAR" property="queryString"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="exception_time" jdbcType="TIMESTAMP" property="exceptionTime"/>
+        <result column="exception_name" jdbcType="VARCHAR" property="exceptionName"/>
+        <result column="exception_class_name" jdbcType="VARCHAR" property="exceptionClassName"/>
+        <result column="exception_file_name" jdbcType="VARCHAR" property="exceptionFileName"/>
+        <result column="exception_method_name" jdbcType="VARCHAR" property="exceptionMethodName"/>
+        <result column="exception_line_number" jdbcType="INTEGER" property="exceptionLineNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="exception_message" jdbcType="LONGVARCHAR" property="exceptionMessage"/>
+        <result column="exception_root_cause_message" jdbcType="LONGVARCHAR" property="exceptionRootCauseMessage"/>
+        <result column="exception_stack_trace" jdbcType="LONGVARCHAR" property="exceptionStackTrace"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, trace_id, user_id, user_type, application_name, uri, query_string, method, user_agent,
+    ip, exception_time, exception_name, exception_class_name, exception_file_name, exception_method_name,
+    exception_line_number, create_time,exception_message, exception_root_cause_message, exception_stack_trace
+  </sql>
+
+
+</mapper>

@@ -1,4 +1,4 @@
-package cn.boot.mybatisplus.permission;
+package cn.boot.mybatisplus.config.permission;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -12,6 +12,6 @@ public class Role {
 
     private String name;
 
-    private Byte isDelete;
+    private Integer isDelete;
 
 }

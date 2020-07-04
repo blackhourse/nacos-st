@@ -59,7 +59,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             }
         }
         //可以使用雪花算法，生成ID
-        menu.setId(System.currentTimeMillis());
+//        menu.setId(System.currentTimeMillis());
         super.save(menu);
     }
 

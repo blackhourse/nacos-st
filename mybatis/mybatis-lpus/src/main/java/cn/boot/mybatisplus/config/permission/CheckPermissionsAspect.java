@@ -1,4 +1,4 @@
-package cn.boot.mybatisplus.permission;
+package cn.boot.mybatisplus.config.permission;
 
 import cn.boot.mybatisplus.dao.MenuMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class CheckPermissionsAspect {
     @Resource
     private MenuMapper menuMapper;
 
-    @Pointcut("@annotation(cn.boot.mybatisplus.permission.CheckPermissions)")
+    @Pointcut("@annotation(cn.boot.mybatisplus.config.permission.CheckPermissions)")
     public void checkPermission() {
     }
 
@@ -58,9 +58,10 @@ public class CheckPermissionsAspect {
                         log.info("接口无访问权限");
                         throw new Exception("接口无访问权限");
                     }
+//                }
                 }
-            }
 
+            }
         }
     }
 }

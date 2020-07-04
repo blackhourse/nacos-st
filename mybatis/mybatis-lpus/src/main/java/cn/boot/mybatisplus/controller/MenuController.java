@@ -23,7 +23,7 @@ import static cn.boot.mybatisplus.base.CommonResult.success;
  * @author: maht
  * @create: 2020-07-02 14:10
  **/
-@Api(value = "菜单接口")
+@Api(tags = "菜单接口")
 @RestController
 @RequestMapping("menu")
 public class MenuController {

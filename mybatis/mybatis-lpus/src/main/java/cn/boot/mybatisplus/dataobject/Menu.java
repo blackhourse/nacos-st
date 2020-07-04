@@ -14,7 +14,7 @@ public class Menu {
 
     private Long parentId;
 
-    private Byte nodeType;
+    private Integer nodeType;
 
     private String iconUrl;
 
@@ -26,6 +26,6 @@ public class Menu {
 
     private String path;
 
-    private Byte isDelete;
+    private Integer isDelete;
 
 }

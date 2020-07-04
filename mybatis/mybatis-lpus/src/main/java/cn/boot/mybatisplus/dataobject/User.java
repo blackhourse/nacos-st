@@ -14,7 +14,7 @@ public class User {
 
     private String password;
 
-    private Byte isDelete;
+    private Integer isDelete;
 
 
 }

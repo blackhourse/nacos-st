@@ -1,0 +1,75 @@
+spring:
+  datasource:  # datasource 数据源配置内容
+    username: root #数据库的用户名
+    password: 123456 #数据库的用户密码
+    url: jdbc:mysql://127.0.0.1:3306/menu_auth_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai # 数据库连接地址
+    driver-class-name: com.mysql.jdbc.Driver # 数据库驱动
+    type: com.alibaba.druid.pool.DruidDataSource # 数据库类型 使用druid
+    druid:
+      initial-size: 5 #初始化时建立物理连接的个数（缺省值：0）
+      max-active: 200 # 最大连接池数量（缺省值：8）
+      min-idle: 1 # 最小链接池数量
+      max-wait: 6000 #获取连接时最大等待时间，单位毫秒
+      time-between-eviction-runs-millis: 6000
+      min-evictable-idle-time-millis: 30000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+      validation-query: select 1 #用来检测连接是否有效的sql，要求是一个查询语
+      pool-prepared-statements: false #是否缓存preparedStatement mysql 建议关闭
+      test-on-borrow: false #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-return: false # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-while-idle: true # 建议配置为true，不影响性能，并且保证安全性
+      connection-init-sqls: select 1 from dual # 物理连接初始化的时候执行的sql
+      #监控统计用的filter:stat  日志用的filter:log4j  防御sql注入的filter:wall
+      filters: stat,wall,log4j2
+      filter:
+        stat: # 监控统计
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+        wall: #防御sql
+          enabled: true
+          db-type: mysql
+          config:
+            delete-allow: true #运行执行删除语句
+            drop-table-allow: false #不运行执行删除表语句
+        log4j2:
+          enabled: true
+      stat-view-servlet: #statViewServlet配置
+        enabled: true #开启状态
+        url-pattern: "/druid/*" #监控页面访问路径
+        reset-enable: false # 禁止手动重置监控数据
+        login-username: admin # 用户名
+        login-password: admin # 密码
+      web-stat-filter: #WebStatFilter配置
+        enabled: true  #开启状态
+        url-pattern: "/*" #拦截请求
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*" #排除请求
+        session-stat-max-count: 1000 # 监控最大session数，默认是1000
+        session-stat-enable: true # 是否启用session的统计功能
+        profile-enable: true # 是否启用监控单个Url调用的sql列表
+        principal-session-name: session_user_key #使druid当前session的用户是谁
+        principal-cookie-name: cookie_user_key #使druid当前user的用户是谁
+  aop:
+    proxy-target-class: true
+
+
+# mybatis-plus 配置内容
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type:  # ID 主键自增
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.boot.mybatisplus.dataobject
+
+# logging
+logging:
+  level:
+    # dao 开启 debug 模式 mybatis 输入 sql
+    cn:
+      boot:
+        mybatisplus:
+          dao: debug
