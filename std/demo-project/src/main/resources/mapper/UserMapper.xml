@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.boot.mybatisplus.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.boot.mybatisplus.dataobject.User">
+<mapper namespace="cn.boot.st.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.boot.st.dataobject.User">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="name" jdbcType="VARCHAR" property="name" />
