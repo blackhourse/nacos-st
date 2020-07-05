@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.boot.mybatisplus.dao.AccessLogMapper">
+  <resultMap id="BaseResultMap" type="cn.boot.mybatisplus.dataobject.AccessLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="trace_id" jdbcType="VARCHAR" property="traceId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="application_name" jdbcType="VARCHAR" property="applicationName" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="query_string" jdbcType="VARCHAR" property="queryString" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="response_time" jdbcType="INTEGER" property="responseTime" />
+    <result column="error_code" jdbcType="INTEGER" property="errorCode" />
+    <result column="error_message" jdbcType="VARCHAR" property="errorMessage" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="response_info" jdbcType="VARCHAR" property="responseInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, trace_id, user_id, user_type, application_name, uri, query_string, method, user_agent, 
+    ip, start_time, response_time, error_code, error_message, create_time,response_info
+  </sql>
+
+</mapper>
