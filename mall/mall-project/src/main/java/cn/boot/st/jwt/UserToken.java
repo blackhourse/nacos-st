@@ -22,4 +22,6 @@ public class UserToken {
     private String password;
 
     private Integer isDelete;
+
+    private String token;
 }

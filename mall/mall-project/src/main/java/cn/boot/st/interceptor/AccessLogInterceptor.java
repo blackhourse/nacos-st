@@ -41,6 +41,14 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //        ----------日志id--------
+        // 记录当前时间
+        CommonWebUtil.setAccessStartTime(request, new Date());
+        String traceId = TraceLogUtils.getTraceId();
+        MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
+        request.setAttribute("traceId", traceId);
+        MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
+
         // 从http请求头中取出token
         final String token = request.getHeader(JwtTokenUtil.AUTH_HEADER_KEY);
         //如果不是映射到方法，直接通过
@@ -58,26 +66,18 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
         if (method.isAnnotationPresent(JwtIgnore.class)) {
             JwtIgnore jwtIgnore = method.getAnnotation(JwtIgnore.class);
             if (jwtIgnore.value()) {
-//                return true;
-            }else {
+                String userToken = JwtTokenUtil.verifyToken(token);
+                //将token放入本地缓存
+                WebContextUtil.setUserToken(userToken);
+                return true;
+            } else {
                 return false;
             }
+
         }
-        Assert.isNull(token, "token为空，鉴权失败！");
+        Assert.notNull(token, "token为空，鉴权失败！");
 //        LocalAssert.isStringEmpty(token, "token为空，鉴权失败！");
         //验证，并获取token内部信息
-        String userToken = JwtTokenUtil.verifyToken(token);
-
-        //将token放入本地缓存
-        WebContextUtil.setUserToken(userToken);
-
-//        ----------日志id--------
-        // 记录当前时间
-        CommonWebUtil.setAccessStartTime(request, new Date());
-        String traceId = TraceLogUtils.getTraceId();
-        MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
-        request.setAttribute("traceId", traceId);
-        MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
 
         log.info("preHandle...");
         return true;
@@ -109,12 +109,14 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
 //        accessLog.setAccountId(CommonWebUtil.getAccountId(request));
         // 设置访问结果
         CommonResult result = CommonWebUtil.getCommonResult(request);
-        Assert.isTrue(result != null, "result 必须非空");
+//        Assert.isTrue(result != null, "result 必须非空");
 
         accessLog.setApplicationName(applicationName);
+      /*  if (!request.getRequestURI().equalsIgnoreCase("/login/login")) {
+            accessLog.setErrorCode(result.getCode());
+            accessLog.setErrorMessage(result.getMessage());
+        }*/
 
-        accessLog.setErrorCode(result.getCode());
-        accessLog.setErrorMessage(result.getMessage());
         // 设置其它字段
 //        accessLog.setTraceId(traceId);
         accessLog.setApplicationName(applicationName);

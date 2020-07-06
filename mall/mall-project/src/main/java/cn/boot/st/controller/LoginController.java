@@ -46,6 +46,7 @@ public class LoginController {
         String token = JwtTokenUtil.createToken(JSONObject.toJSONString(userToken));
         response.setHeader(JwtTokenUtil.AUTH_HEADER_KEY, token);
         //定义返回结果
-        return CommonResult.success(user);
+        userToken.setToken(token);
+        return CommonResult.success(userToken);
     }
 }

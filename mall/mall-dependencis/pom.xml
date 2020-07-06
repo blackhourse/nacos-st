@@ -6,7 +6,6 @@
         <artifactId>mall</artifactId>
         <groupId>org.example</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,8 +23,6 @@
         <slf4j-api.version>1.7.7</slf4j-api.version>
         <slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
         <lombok.version>1.18.10</lombok.version>
-        <!--<knife4j-spring-boot.version>1.9.6</knife4j-spring-boot.version>
-        <knife4j-spring-boot-autoconfigure.version>2.0.2</knife4j-spring-boot-autoconfigure.version>-->
         <knife4j.version>2.0.2</knife4j.version>
         <lang3.version>3.9</lang3.version>
         <fastjson.version>1.2.44</fastjson.version>
@@ -40,14 +37,21 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--springboot-->
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springboot-->
+        <!--    <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
                 <version>${spring.boot.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
