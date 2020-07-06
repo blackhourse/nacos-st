@@ -1,4 +1,4 @@
-package cn.boot.st.web.dataobject;
+package cn.boot.st.security.dataobject;
 
 import java.io.Serializable;
 import java.util.Date;

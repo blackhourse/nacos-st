@@ -1,7 +1,7 @@
-package cn.boot.st.web.enums;
+package cn.boot.st.security.enums;
 
 
-import cn.boot.st.web.dataobject.DeletableDO;
+import cn.boot.st.security.dataobject.DeletableDO;
 
 /**
  * {@link DeletableDO#getDeleted()} delete 状态

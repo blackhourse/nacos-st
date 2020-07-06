@@ -1,7 +1,7 @@
 package cn.boot.st.config.permission;
 
 import cn.boot.st.dao.MenuMapper;
-import cn.boot.st.web.exception.BizException;
+import cn.boot.st.security.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;

@@ -1,6 +1,6 @@
-package cn.boot.st.web.utils;
+package cn.boot.st.security.utils;
 
-import cn.boot.st.web.exception.BizException;
+import cn.boot.st.security.exception.BizException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.validation.ConstraintViolationException;

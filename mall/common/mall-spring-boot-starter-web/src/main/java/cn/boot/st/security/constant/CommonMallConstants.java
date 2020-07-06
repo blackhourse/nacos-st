@@ -1,4 +1,4 @@
-package cn.boot.st.web.constant;
+package cn.boot.st.security.constant;
 
 public interface CommonMallConstants {
 

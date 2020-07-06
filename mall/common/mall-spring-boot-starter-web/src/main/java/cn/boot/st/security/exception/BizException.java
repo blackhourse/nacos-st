@@ -1,4 +1,4 @@
-package cn.boot.st.web.exception;
+package cn.boot.st.security.exception;
 
 /**
  * 服务异常

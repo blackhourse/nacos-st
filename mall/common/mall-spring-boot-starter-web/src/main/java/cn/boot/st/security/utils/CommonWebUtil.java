@@ -1,8 +1,8 @@
-package cn.boot.st.web.utils;
+package cn.boot.st.security.utils;
 
 
 import cn.boot.st.common.framwork.vo.CommonResult;
-import cn.boot.st.web.constant.CommonMallConstants;
+import cn.boot.st.security.constant.CommonMallConstants;
 
 import javax.servlet.ServletRequest;
 import java.util.Date;

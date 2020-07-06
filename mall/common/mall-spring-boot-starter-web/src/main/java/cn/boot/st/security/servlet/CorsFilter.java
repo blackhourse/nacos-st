@@ -1,4 +1,4 @@
-package cn.boot.st.web.servlet;
+package cn.boot.st.security.servlet;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
