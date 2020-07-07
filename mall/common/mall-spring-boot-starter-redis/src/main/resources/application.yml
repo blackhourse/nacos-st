@@ -1,10 +1,8 @@
-spring:
-  redisson:
-    address: redis://10.18.75.115:6379
-    password:
-
-
+#单机版
+redisson:
+  address: redis://127.0.0.1:6379
+  password:
 #集群版
-  #redisson.master-name=mymaster
-  #redisson.password=xxxx
-  #redisson.sentinel-addresses=10.47.91.83:26379,10.47.91.83:26380,10.47.91.83:26381
+#redisson.master-name=mymaster
+#redisson.password=xxxx
+#redisson.sentinel-addresses=10.47.91.83:26379,10.47.91.83:26380,10.47.91.83:26381

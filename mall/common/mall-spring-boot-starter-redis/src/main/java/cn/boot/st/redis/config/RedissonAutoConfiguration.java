@@ -16,8 +16,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-
 /**
  * @program: mall
  * @author: maht
@@ -33,10 +31,11 @@ public class RedissonAutoConfiguration {
 
     /**
      * 哨兵模式自动装配
+     *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name="redisson.master-name")
+    @ConditionalOnProperty(name = "redisson.master-name")
     RedissonClient redissonSentinel() {
         Config config = new Config();
         SentinelServersConfig serverConfig = config.useSentinelServers().addSentinelAddress(redssionProperties.getSentinelAddresses())
@@ -45,7 +44,7 @@ public class RedissonAutoConfiguration {
                 .setMasterConnectionPoolSize(redssionProperties.getMasterConnectionPoolSize())
                 .setSlaveConnectionPoolSize(redssionProperties.getSlaveConnectionPoolSize());
 
-        if(StringUtils.isNotBlank(redssionProperties.getPassword())) {
+        if (StringUtils.isNotBlank(redssionProperties.getPassword())) {
             serverConfig.setPassword(redssionProperties.getPassword());
         }
         return Redisson.create(config);
@@ -53,10 +52,11 @@ public class RedissonAutoConfiguration {
 
     /**
      * 单机模式自动装配
+     *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name="redisson.address")
+    @ConditionalOnProperty(name = "redisson.address")
     RedissonClient redissonSingle() {
         Config config = new Config();
         SingleServerConfig serverConfig = config.useSingleServer()
@@ -65,7 +65,7 @@ public class RedissonAutoConfiguration {
                 .setConnectionPoolSize(redssionProperties.getConnectionPoolSize())
                 .setConnectionMinimumIdleSize(redssionProperties.getConnectionMinimumIdleSize());
 
-        if(StringUtils.isNotBlank(redssionProperties.getPassword())) {
+        if (StringUtils.isNotBlank(redssionProperties.getPassword())) {
             serverConfig.setPassword(redssionProperties.getPassword());
         }
 
@@ -74,6 +74,7 @@ public class RedissonAutoConfiguration {
 
     /**
      * 装配locker类，并将实例注入到RedissLockUtil中
+     *
      * @return
      */
     @Bean

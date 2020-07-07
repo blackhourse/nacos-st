@@ -50,11 +50,17 @@ spring:
         principal-cookie-name: cookie_user_key #使druid当前user的用户是谁
   aop:
     proxy-target-class: true
-  redis:
-    jedis:
-      pool:
-        max-idle: 200
-        min-idle: 10
+
+#单机版
+redisson:
+  address: redis://127.0.0.1:6379
+  password:
+#集群版
+#redisson.master-name=mymaster
+#redisson.password=xxxx
+#redisson.sentinel-addresses=10.47.91.83:26379,10.47.91.83:26380,10.47.91.83:26381
+
+
 # mybatis-plus 配置内容
 mybatis-plus:
   configuration:

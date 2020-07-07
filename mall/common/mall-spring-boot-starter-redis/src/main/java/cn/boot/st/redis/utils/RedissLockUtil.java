@@ -19,6 +19,7 @@ public class RedissLockUtil {
 
     /**
      * 加锁
+     *
      * @param lockKey
      * @return
      */
@@ -28,6 +29,7 @@ public class RedissLockUtil {
 
     /**
      * 释放锁
+     *
      * @param lockKey
      */
     public static void unlock(String lockKey) {
@@ -36,6 +38,7 @@ public class RedissLockUtil {
 
     /**
      * 释放锁
+     *
      * @param lock
      */
     public static void unlock(RLock lock) {
@@ -44,6 +47,7 @@ public class RedissLockUtil {
 
     /**
      * 带超时的锁
+     *
      * @param lockKey
      * @param timeout 超时时间   单位：秒
      */
@@ -53,18 +57,20 @@ public class RedissLockUtil {
 
     /**
      * 带超时的锁
+     *
      * @param lockKey
-     * @param unit 时间单位
+     * @param unit    时间单位
      * @param timeout 超时时间
      */
-    public static RLock lock(String lockKey, TimeUnit unit ,int timeout) {
+    public static RLock lock(String lockKey, TimeUnit unit, int timeout) {
         return redissLock.lock(lockKey, unit, timeout);
     }
 
     /**
      * 尝试获取锁
+     *
      * @param lockKey
-     * @param waitTime 最多等待时间
+     * @param waitTime  最多等待时间
      * @param leaseTime 上锁后自动释放锁时间
      * @return
      */
@@ -74,9 +80,10 @@ public class RedissLockUtil {
 
     /**
      * 尝试获取锁
+     *
      * @param lockKey
-     * @param unit 时间单位
-     * @param waitTime 最多等待时间
+     * @param unit      时间单位
+     * @param waitTime  最多等待时间
      * @param leaseTime 上锁后自动释放锁时间
      * @return
      */
