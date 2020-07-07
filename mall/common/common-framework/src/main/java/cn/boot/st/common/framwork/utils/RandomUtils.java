@@ -1,4 +1,4 @@
-package cn.boot.st.security.utils;
+package cn.boot.st.common.framwork.utils;
 
 
 import org.apache.commons.lang3.RandomStringUtils;

@@ -1,6 +1,7 @@
 package cn.boot.st.config.springmvc;
 
 import cn.boot.st.interceptor.AccessLogInterceptor;
+import cn.boot.st.interceptor.TokenInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -25,6 +27,10 @@ public class CommonWebAutoConfiguration implements WebMvcConfigurer {
         return new AccessLogInterceptor();
     }
 
+    @Bean
+    public TokenInterceptor tokenInterceptor() {
+        return new TokenInterceptor();
+    }
 
     /**
      * 重写父类提供的跨域请求处理的接口
@@ -55,27 +61,24 @@ public class CommonWebAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         try {
-            registry.addInterceptor(this.accessLogInterceptor())
-                    .addPathPatterns("/**")
-//                    .addPathPatterns("/menu/**", "/role/**")
-                    .excludePathPatterns("/swagger-resources", "/webjars/**", "/doc.html", "/v2/api-docs")
-                    .excludePathPatterns("/api/login", "/swagger-ui.html/**", "/swagger-resources/**")
-                    .excludePathPatterns("/api/login/pwd/change", "/api/resources/**"); // 设置忽略的路径  登录  swagger;;
-//                    .addPathPatterns(CommonMallConstants.ROOT_PATH_ADMIN + "/**", CommonMallConstants.ROOT_PATH_USER + "/**");
-            log.info("[addInterceptors][加载 AccessLogInterceptor 拦截器完成]");
+            registry
+                    .addInterceptor(accessLogInterceptor())
+                    .addPathPatterns("/users/**")
+                    .excludePathPatterns("/swagger-resources/**", "/doc.html", "/webjars/**", "/swagger-ui.html/**");
+           /* registry.addInterceptor(this.tokenInterceptor())
+                    .addPathPatterns("/user/login");
+            log.info("[tokenInterceptor][加载TokenInterceptor完毕]");*/
         } catch (NoSuchBeanDefinitionException e) {
             log.warn("[addInterceptors][无法获取 AccessLogInterceptor 拦截器，因此不启动 AccessLog 的记录]");
         }
     }
-    // ========== 过滤器相关 ==========
 
-/*    @Bean
-    @ConditionalOnMissingBean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
-        FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new CorsFilter());
-        registrationBean.addUrlPatterns("/*");
-        return registrationBean;
-    }*/
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
 }

@@ -1,6 +1,6 @@
-package cn.boot.st.security.utils;
+package cn.boot.st.common.framwork.utils;
 
-import cn.boot.st.security.exception.BizException;
+import cn.boot.st.common.framwork.exception.ServiceException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.validation.ConstraintViolationException;
@@ -9,7 +9,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 public class ExceptionUtil {
 
-    public static BizException getServiceException(Exception e) {
+    public static ServiceException getServiceException(Exception e) {
         if (e instanceof UndeclaredThrowableException) {
             return getServiceException((UndeclaredThrowableException) e);
         }
@@ -22,13 +22,13 @@ public class ExceptionUtil {
     //   1. Dubbo 动态代理 Wrapper 会将抛出的异常，包装成 InvocationTargetException 异常
     //   2. Spring AOP 发现是 InvocationTargetException 异常是非方法定义的异常，则会包装成 UndeclaredThrowableException 异常。
     @Deprecated // https://github.com/apache/incubator-dubbo/issues/3386 Dubbo 2.6.5 会触发该问题，在 2.7.1 版本已经解决。
-    public static BizException getServiceException(UndeclaredThrowableException e) {
+    public static ServiceException getServiceException(UndeclaredThrowableException e) {
         Throwable undeclaredThrowable = e.getUndeclaredThrowable();
         if (undeclaredThrowable instanceof InvocationTargetException) {
             InvocationTargetException invocationTargetException = (InvocationTargetException) undeclaredThrowable;
             Throwable targetException = invocationTargetException.getTargetException();
-            if (targetException != null & targetException instanceof BizException) {
-                return (BizException) targetException;
+            if (targetException != null & targetException instanceof ServiceException) {
+                return (ServiceException) targetException;
             }
         }
         return null;

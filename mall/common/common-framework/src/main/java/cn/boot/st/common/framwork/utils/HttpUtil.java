@@ -1,10 +1,10 @@
-package cn.boot.st.security.utils;
+package cn.boot.st.common.framwork.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.ServletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

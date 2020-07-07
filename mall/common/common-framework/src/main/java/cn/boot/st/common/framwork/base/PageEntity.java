@@ -1,4 +1,4 @@
-package cn.boot.st.base;
+package cn.boot.st.common.framwork.base;
 
 import lombok.Data;
 

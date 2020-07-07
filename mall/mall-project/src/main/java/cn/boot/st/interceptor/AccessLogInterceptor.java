@@ -1,14 +1,14 @@
 package cn.boot.st.interceptor;
 
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.ResponseData;
+import cn.boot.st.common.framwork.constant.CommonMallConstants;
+import cn.boot.st.common.framwork.utils.HttpUtil;
+import cn.boot.st.common.framwork.utils.TraceLogUtils;
 import cn.boot.st.dataobject.AccessLog;
 import cn.boot.st.jwt.JwtIgnore;
 import cn.boot.st.jwt.JwtTokenUtil;
 import cn.boot.st.jwt.WebContextUtil;
-import cn.boot.st.security.constant.CommonMallConstants;
 import cn.boot.st.security.utils.CommonWebUtil;
-import cn.boot.st.security.utils.HttpUtil;
-import cn.boot.st.security.utils.TraceLogUtils;
 import cn.boot.st.systemlog.SystemLogService;
 import com.alibaba.fastjson.JSON;
 import jdk.nashorn.internal.ir.annotations.Reference;
@@ -48,7 +48,7 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
         MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
         request.setAttribute("traceId", traceId);
         MDC.put(CommonMallConstants.LOG_TRACE_ID, traceId);
-
+        log.info("preHandle...");
         // 从http请求头中取出token
         final String token = request.getHeader(JwtTokenUtil.AUTH_HEADER_KEY);
         //如果不是映射到方法，直接通过
@@ -66,20 +66,15 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
         if (method.isAnnotationPresent(JwtIgnore.class)) {
             JwtIgnore jwtIgnore = method.getAnnotation(JwtIgnore.class);
             if (jwtIgnore.value()) {
-                String userToken = JwtTokenUtil.verifyToken(token);
-                //将token放入本地缓存
-                WebContextUtil.setUserToken(userToken);
                 return true;
-            } else {
-                return false;
             }
-
         }
         Assert.notNull(token, "token为空，鉴权失败！");
-//        LocalAssert.isStringEmpty(token, "token为空，鉴权失败！");
         //验证，并获取token内部信息
+        String userToken = JwtTokenUtil.verifyToken(token);
 
-        log.info("preHandle...");
+        //将token放入本地缓存
+        WebContextUtil.setUserToken(userToken);
         return true;
     }
 
@@ -98,7 +93,6 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
             log.error("[afterCompletion][插入访问日志({}) 发生异常({})", JSON.toJSONString(accessLog), ExceptionUtils.getRootCauseMessage(th));
         } finally {
             MDC.remove(CommonMallConstants.LOG_TRACE_ID);
-            //方法结束后，移除缓存的token
             WebContextUtil.removeUserToken();
         }
     }
@@ -108,17 +102,13 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
         // 设置账号编号
 //        accessLog.setAccountId(CommonWebUtil.getAccountId(request));
         // 设置访问结果
-        CommonResult result = CommonWebUtil.getCommonResult(request);
-//        Assert.isTrue(result != null, "result 必须非空");
-
+        ResponseData result = CommonWebUtil.getCommonResult(request);
+        Assert.isTrue(result != null, "result 必须非空");
         accessLog.setApplicationName(applicationName);
-      /*  if (!request.getRequestURI().equalsIgnoreCase("/login/login")) {
-            accessLog.setErrorCode(result.getCode());
-            accessLog.setErrorMessage(result.getMessage());
-        }*/
-
+        accessLog.setErrorCode(result.getCode());
+        accessLog.setErrorMessage(result.getMessage());
+        accessLog.setResponseInfo(JSON.toJSONString(result));
         // 设置其它字段
-//        accessLog.setTraceId(traceId);
         accessLog.setApplicationName(applicationName);
         accessLog.setUri(request.getRequestURI()); // TODO 可以使用 Swagger 的 @ApiOperation 注解。
         accessLog.setQueryString(HttpUtil.buildQueryString(request));

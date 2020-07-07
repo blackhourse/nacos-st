@@ -1,5 +1,8 @@
 package cn.boot.st.security.servlet;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,15 +10,17 @@ import java.io.IOException;
 
 /**
  * Cors 过滤器
- *
+ * <p>
  * 未来使用 {@link org.springframework.web.filter.CorsFilter} 替换
  */
+@Slf4j
+@Component
 public class CorsFilter implements Filter {
 
-    @Override
-    public void init(FilterConfig filterConfig) { }
+    public void init(FilterConfig filterConfig) {
+        log.info("[过滤器启动。。。。]");
+    }
 
-    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse resp = (HttpServletResponse) response;
         resp.setHeader("Access-Control-Allow-Origin", "*");
@@ -33,7 +38,6 @@ public class CorsFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    @Override
     public void destroy() {
     }
 

@@ -1,6 +1,9 @@
 package cn.boot.st.controller;
 
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.Response;
+import cn.boot.st.common.framwork.base.ResponseCode;
+import cn.boot.st.common.framwork.base.ResponseData;
+import cn.boot.st.common.framwork.exception.ServiceException;
 import cn.boot.st.dataobject.Menu;
 import cn.boot.st.service.MenuService;
 import cn.boot.st.vo.MenuVo;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static cn.boot.st.common.framwork.vo.CommonResult.success;
-
 
 /**
  * @program: nacos-st
@@ -24,7 +25,7 @@ import static cn.boot.st.common.framwork.vo.CommonResult.success;
  **/
 @Api(tags = "菜单接口")
 @RestController
-@RequestMapping("menu")
+@RequestMapping("/users/menu")
 @Slf4j
 public class MenuController {
 
@@ -33,29 +34,32 @@ public class MenuController {
 
     @ApiOperation(value = "添加菜单")
     @PostMapping("add")
-    public CommonResult addMenu(@RequestBody Menu menu) {
+    public ResponseData addMenu(@RequestBody Menu menu) {
         menuService.addMenu(menu);
-        return success();
+        return Response.ok();
     }
 
     @ApiOperation(value = "修改菜单")
     @PostMapping("update")
-    public CommonResult updateMenu(@RequestBody Menu menu) {
+    public ResponseData updateMenu(@RequestBody Menu menu) {
         menuService.updateMenu(menu);
-        return success();
+        return Response.ok();
     }
 
     @ApiOperation(value = "删除菜单")
     @PostMapping("delete")
-    public CommonResult delMenu(@RequestBody Menu menu) {
+    public ResponseData delMenu(@RequestBody Menu menu) {
         menuService.delMenu(menu);
-        return success();
+        return Response.ok();
     }
 
     @ApiOperation(value = "菜单列表", response = MenuVo.class)
     @GetMapping("list")
-    public CommonResult<List<MenuVo>> addMenu() {
-        return success(menuService.queryMenuTree());
+    public ResponseData<List<MenuVo>> menuList() throws Exception {
+        if (1 == 1) {
+            throw new ServiceException(ResponseCode.USER_EXCEPTION_CODE);
+        }
+        return Response.ok(menuService.queryMenuTree());
     }
 
     @ApiOperation(value = "根据userId获取菜单列表", response = MenuVo.class)
@@ -63,7 +67,7 @@ public class MenuController {
     @ApiImplicitParams(
             @ApiImplicitParam(paramType = "query", name = "userId", value = "userId", required = true, dataType = "Long")
     )
-    public CommonResult<List<MenuVo>> addMenu(Long userId) {
-        return success(menuService.queryMenus(userId));
+    public ResponseData<List<MenuVo>> queryMenus(Long userId) {
+        return Response.ok(menuService.queryMenus(userId));
     }
 }

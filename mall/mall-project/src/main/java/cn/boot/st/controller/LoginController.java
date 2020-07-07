@@ -1,6 +1,8 @@
 package cn.boot.st.controller;
 
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.Response;
+import cn.boot.st.common.framwork.base.ResponseData;
+import cn.boot.st.common.framwork.exception.ServiceException;
 import cn.boot.st.dao.UserMapper;
 import cn.boot.st.dataobject.User;
 import cn.boot.st.jwt.JwtIgnore;
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Api(tags = "登录")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class LoginController {
 
     @Autowired
@@ -35,7 +37,7 @@ public class LoginController {
     @JwtIgnore
     @ApiOperation(value = "登录")
     @PostMapping(value = "/login", produces = {"application/json;charset=UTF-8"})
-    public CommonResult login(@RequestBody User userDto, HttpServletResponse response) {
+    public ResponseData<UserToken> login(@RequestBody User userDto, HttpServletResponse response) throws Exception {
         //...参数合法性验证
         //从数据库获取用户信息
         User user = userMapper.selectById(userDto.getId());
@@ -47,6 +49,6 @@ public class LoginController {
         response.setHeader(JwtTokenUtil.AUTH_HEADER_KEY, token);
         //定义返回结果
         userToken.setToken(token);
-        return CommonResult.success(userToken);
+        return Response.ok(userToken);
     }
 }

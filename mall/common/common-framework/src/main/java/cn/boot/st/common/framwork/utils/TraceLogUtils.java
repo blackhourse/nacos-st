@@ -1,7 +1,7 @@
-package cn.boot.st.security.utils;
+package cn.boot.st.common.framwork.utils;
 
 
-import cn.boot.st.security.constant.CommonMallConstants;
+import cn.boot.st.common.framwork.constant.CommonMallConstants;
 
 /**
  * @Author: tf

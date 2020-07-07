@@ -1,6 +1,7 @@
 package cn.boot.st.systemlog;
 
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.Response;
+import cn.boot.st.common.framwork.base.ResponseData;
 import cn.boot.st.dao.AccessLogMapper;
 import cn.boot.st.dao.ExceptionLogMapper;
 import cn.boot.st.dataobject.AccessLog;
@@ -16,14 +17,14 @@ public class SystemLogServiceImpl implements SystemLogService {
     private ExceptionLogMapper exceptionLogMapper;
 
     @Override
-    public CommonResult<Boolean> addAccessLog(AccessLog accessLog) {
+    public ResponseData<Boolean> addAccessLog(AccessLog accessLog) {
         accessLogMapper.insert(accessLog);
-        return CommonResult.success(true);
+        return Response.ok(true);
     }
 
     @Override
-    public CommonResult<Boolean> addExceptionLog(ExceptionLog exceptionLog) {
+    public ResponseData<Boolean> addExceptionLog(ExceptionLog exceptionLog) {
         exceptionLogMapper.insert(exceptionLog);
-        return CommonResult.success(true);
+        return Response.ok(true);
     }
 }

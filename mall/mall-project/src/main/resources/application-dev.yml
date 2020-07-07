@@ -50,13 +50,16 @@ spring:
         principal-cookie-name: cookie_user_key #使druid当前user的用户是谁
   aop:
     proxy-target-class: true
-
-
+  redis:
+    jedis:
+      pool:
+        max-idle: 200
+        min-idle: 10
 # mybatis-plus 配置内容
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       id-type:  # ID 主键自增

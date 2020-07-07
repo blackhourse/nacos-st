@@ -1,6 +1,7 @@
 package cn.boot.st.controller;
 
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.Response;
+import cn.boot.st.common.framwork.base.ResponseData;
 import cn.boot.st.config.permission.CheckPermissions;
 import cn.boot.st.dataobject.Role;
 import cn.boot.st.dto.RoleDto;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static cn.boot.st.common.framwork.vo.CommonResult.success;
-
 
 /**
  * @program: nacos-st
@@ -24,7 +23,7 @@ import static cn.boot.st.common.framwork.vo.CommonResult.success;
  **/
 @Api(tags = "角色管理")
 @RestController
-@RequestMapping("role")
+@RequestMapping("/users/role")
 public class RoleController {
 
     @Autowired
@@ -33,9 +32,9 @@ public class RoleController {
     @CheckPermissions(value = "roleMgr:list")
     @PostMapping("queryRole")
     @ApiOperation(value = "角色列表", response = Role.class)
-    public CommonResult<List<Role>> queryRole(RoleDto roleDto) {
+    public ResponseData<List<Role>> queryRole(RoleDto roleDto) {
         List<Role> list = roleService.list();
-        return success(list);
+        return Response.ok(list);
     }
 
 

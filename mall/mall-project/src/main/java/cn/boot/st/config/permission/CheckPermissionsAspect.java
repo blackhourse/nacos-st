@@ -1,7 +1,8 @@
 package cn.boot.st.config.permission;
 
+import cn.boot.st.common.framwork.base.ResponseCode;
+import cn.boot.st.common.framwork.exception.ServiceException;
 import cn.boot.st.dao.MenuMapper;
-import cn.boot.st.security.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -57,7 +58,7 @@ public class CheckPermissionsAspect {
                     int count = menuMapper.selectAuthByUserIdAndMenuCode(userId, menuCode);
                     if (count == 0) {
                         log.info("接口无访问权限");
-                        throw new BizException(01100112, "接口无访问权限");
+                        throw new ServiceException(ResponseCode.INTER_NO_ACCESS);
                     }
 //                }
                 }

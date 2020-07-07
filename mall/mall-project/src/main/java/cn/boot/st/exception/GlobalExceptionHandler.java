@@ -1,12 +1,13 @@
 package cn.boot.st.exception;
 
-import cn.boot.st.base.SysErrorCodeEnum;
-import cn.boot.st.common.framwork.vo.CommonResult;
+import cn.boot.st.common.framwork.base.Response;
+import cn.boot.st.common.framwork.base.ResponseCode;
+import cn.boot.st.common.framwork.base.ResponseData;
+import cn.boot.st.common.framwork.exception.ServiceException;
+import cn.boot.st.common.framwork.utils.ExceptionUtil;
+import cn.boot.st.common.framwork.utils.HttpUtil;
 import cn.boot.st.dataobject.ExceptionLog;
 import cn.boot.st.systemlog.SystemLogService;
-import cn.boot.st.security.exception.BizException;
-import cn.boot.st.security.utils.ExceptionUtil;
-import cn.boot.st.security.utils.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
 import lombok.extern.slf4j.Slf4j;
@@ -48,33 +49,56 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(value = BizException.class)
-    public CommonResult serviceExceptionHandler(HttpServletRequest req, BizException ex) {
+    @ExceptionHandler(value = ServiceException.class)
+    public ResponseData serviceExceptionHandler(HttpServletRequest req, ServiceException ex) {
         log.debug("[serviceExceptionHandler]", ex);
-        return CommonResult.error(ex.getCode(), ex.getMessage());
+        this.saveExceptionLog(req, ex);
+        return Response.fail(ex.getMessage(), ex.getCode());
     }
 
     // Spring MVC 参数不正确
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public CommonResult missingServletRequestParameterExceptionHandler(HttpServletRequest req, MissingServletRequestParameterException ex) {
+    public ResponseData missingServletRequestParameterExceptionHandler(HttpServletRequest req, MissingServletRequestParameterException ex) {
         log.warn("[missingServletRequestParameterExceptionHandler]", ex);
-        return CommonResult.error(SysErrorCodeEnum.MISSING_REQUEST_PARAM_ERROR.getCode(),
-                SysErrorCodeEnum.MISSING_REQUEST_PARAM_ERROR.getMessage() + ":" + ex.getMessage());
+        this.saveExceptionLog(req, ex);
+        return Response.fail(ResponseCode.MISSING_REQUEST_PARAM_ERROR.getMessage() + ":" + ex.getMessage()
+                , ResponseCode.MISSING_REQUEST_PARAM_ERROR.getCode());
     }
 
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public CommonResult constraintViolationExceptionHandler(HttpServletRequest req, ConstraintViolationException ex) {
+    public ResponseData constraintViolationExceptionHandler(HttpServletRequest req, ConstraintViolationException ex) {
         log.info("[constraintViolationExceptionHandler]", ex);
+        this.saveExceptionLog(req, ex);
         // 拼接详细报错
         StringBuilder detailMessage = new StringBuilder("\n\n详细错误如下：");
         ex.getConstraintViolations().forEach(constraintViolation -> detailMessage.append("\n").append(constraintViolation.getMessage()));
-        return CommonResult.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR.getCode(),
-                SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR.getMessage() + detailMessage.toString());
+        return Response.fail(ResponseCode.VALIDATION_REQUEST_PARAM_ERROR.getMessage() + detailMessage.toString()
+                , ResponseCode.VALIDATION_REQUEST_PARAM_ERROR.getCode());
     }
 
     @ExceptionHandler(value = Exception.class)
-    public CommonResult exceptionHandler(HttpServletRequest req, Exception e) {
+    public ResponseData exceptionHandler(HttpServletRequest req, Exception e) {
         log.error("[exceptionHandler]", e);
+        this.saveExceptionLog(req, e);
+        /*log.error("[exceptionHandler]", e);
+        // 插入异常日志
+        ExceptionLog exceptionLog = new ExceptionLog();
+        try {
+            // 增加异常计数 metrics TODO 暂时去掉
+//            EXCEPTION_COUNTER.increment();
+            // 初始化 exceptionLog
+            initExceptionLog(exceptionLog, req, e);
+            // 执行插入 exceptionLog
+            addExceptionLog(exceptionLog);
+        } catch (Throwable th) {
+            log.error("[exceptionHandler][插入访问日志({}) 发生异常({})", JSON.toJSONString(exceptionLog), ExceptionUtils.getRootCauseMessage(th));
+        }*/
+        // 返回 ERROR CommonResult
+        return Response.fail(ResponseCode.SYS_ERROR.getMessage(), ResponseCode.SYS_ERROR.getCode());
+    }
+
+
+    private void saveExceptionLog(HttpServletRequest req, Exception e) {
         // 插入异常日志
         ExceptionLog exceptionLog = new ExceptionLog();
         try {
@@ -87,9 +111,8 @@ public class GlobalExceptionHandler {
         } catch (Throwable th) {
             log.error("[exceptionHandler][插入访问日志({}) 发生异常({})", JSON.toJSONString(exceptionLog), ExceptionUtils.getRootCauseMessage(th));
         }
-        // 返回 ERROR CommonResult
-        return CommonResult.error(SysErrorCodeEnum.SYS_ERROR.getCode(), SysErrorCodeEnum.SYS_ERROR.getMessage());
     }
+
 
     private void initExceptionLog(ExceptionLog exceptionLog, HttpServletRequest request, Exception e) {
         // 设置账号编号

@@ -1,4 +1,4 @@
-package cn.boot.st.security.constant;
+package cn.boot.st.common.framwork.constant;
 
 public interface CommonMallConstants {
 

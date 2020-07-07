@@ -1,8 +1,8 @@
 package cn.boot.st.security.utils;
 
 
-import cn.boot.st.common.framwork.vo.CommonResult;
-import cn.boot.st.security.constant.CommonMallConstants;
+import cn.boot.st.common.framwork.base.ResponseData;
+import cn.boot.st.common.framwork.constant.CommonMallConstants;
 
 import javax.servlet.ServletRequest;
 import java.util.Date;
@@ -17,11 +17,11 @@ public class CommonWebUtil {
         request.setAttribute(CommonMallConstants.REQUEST_ATTR_USER_ID_KEY, userId);
     }
 
-    public static CommonResult getCommonResult(ServletRequest request) {
-        return (CommonResult) request.getAttribute(CommonMallConstants.REQUEST_ATTR_COMMON_RESULT);
+    public static ResponseData getCommonResult(ServletRequest request) {
+        return (ResponseData) request.getAttribute(CommonMallConstants.REQUEST_ATTR_COMMON_RESULT);
     }
 
-    public static void setCommonResult(ServletRequest request, CommonResult result) {
+    public static void setCommonResult(ServletRequest request, ResponseData result) {
         request.setAttribute(CommonMallConstants.REQUEST_ATTR_COMMON_RESULT, result);
     }
 

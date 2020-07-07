@@ -11,7 +11,9 @@
     <artifactId>mall-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mall-project</name>
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>cn.boot.st</groupId>
@@ -121,6 +123,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.1.RELEASE</version>
                 <configuration>
                     <fork>true</fork>
                     <includeSystemScope>true</includeSystemScope>

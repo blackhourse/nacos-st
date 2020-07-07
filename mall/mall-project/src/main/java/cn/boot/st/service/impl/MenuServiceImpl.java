@@ -65,6 +65,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 //        menu.setId(System.currentTimeMillis());
     }
 
+
     @Override
     public List<MenuVo> queryMenus(Long userId) {
         // 先查询当前用户对应角色
