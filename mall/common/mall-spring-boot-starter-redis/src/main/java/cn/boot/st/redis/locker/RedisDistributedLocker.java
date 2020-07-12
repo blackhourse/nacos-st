@@ -1,17 +1,16 @@
-package cn.boot.st.redis.rlock;
+package cn.boot.st.redis.locker;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @program: mall
- * @author: maht
- * @create: 2020-07-07 18:34
- **/
-public class RedissonDistributedLocker implements DistributedLocker {
+@Component
+public class RedisDistributedLocker implements DistributedLocker {
 
+    @Autowired
     private RedissonClient redissonClient;
 
     @Override
@@ -20,7 +19,6 @@ public class RedissonDistributedLocker implements DistributedLocker {
         lock.lock();
         return lock;
     }
-
 
     @Override
     public RLock lock(String lockKey, int leaseTime) {
@@ -55,10 +53,5 @@ public class RedissonDistributedLocker implements DistributedLocker {
     @Override
     public void unlock(RLock lock) {
         lock.unlock();
-    }
-
-    @Override
-    public void setRedissonClient(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
     }
 }

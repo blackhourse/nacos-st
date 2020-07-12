@@ -1,8 +1,14 @@
-#单机版
-redisson:
-  address: redis://127.0.0.1:6379
-  password:
-#集群版
-#redisson.master-name=mymaster
-#redisson.password=xxxx
-#redisson.sentinel-addresses=10.47.91.83:26379,10.47.91.83:26380,10.47.91.83:26381
+spring:
+  # redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    redisson:
+      # 配置单点模式
+      config: classpath:redisson-single-dev.yml
+swagger:
+  enable: true
+  title: mall子系统
+  description: mall子系统
+  version: 1.0.0
+  base-package: cn.boot.st.redis.controller
