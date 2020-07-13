@@ -1,4 +1,4 @@
-package cn.boot.st.security.query;
+package cn.boot.st.web.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;

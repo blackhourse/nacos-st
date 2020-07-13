@@ -1,4 +1,4 @@
-package cn.boot.st.security.utils;
+package cn.boot.st.web.utils;
 
 
 import cn.boot.st.common.framwork.base.ResponseData;

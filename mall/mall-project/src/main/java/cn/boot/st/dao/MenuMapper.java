@@ -1,7 +1,7 @@
 package cn.boot.st.dao;
 
 import cn.boot.st.dataobject.Menu;
-import cn.boot.st.security.query.QueryWrapperX;
+import cn.boot.st.web.query.QueryWrapperX;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

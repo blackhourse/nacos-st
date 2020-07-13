@@ -1,4 +1,4 @@
-package cn.boot.st.security.servlet;
+package cn.boot.st.web.servlet;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -8,7 +8,7 @@ import cn.boot.st.dataobject.AccessLog;
 import cn.boot.st.jwt.JwtIgnore;
 import cn.boot.st.jwt.JwtTokenUtil;
 import cn.boot.st.jwt.WebContextUtil;
-import cn.boot.st.security.utils.CommonWebUtil;
+import cn.boot.st.web.utils.CommonWebUtil;
 import cn.boot.st.systemlog.SystemLogService;
 import com.alibaba.fastjson.JSON;
 import jdk.nashorn.internal.ir.annotations.Reference;
