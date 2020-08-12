@@ -5,6 +5,20 @@ spring:
     name: mybatis
   profiles:
     active: dev
+  redis:
+    host:
+    database: 4
+    # Redis服务器地址10.254.132
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    lettuce:
+      pool:
+        min-idle: 10
+        max-active: 200
+        max-wait: 60000
+        shutdown-timeout: 100
 management:
   endpoints:
     # Actuator HTTP 配置项，对应 WebEndpointProperties 配置类
