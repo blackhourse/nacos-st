@@ -1,13 +1,13 @@
-package cn.boot.std.knife4j;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Knife4jApplication {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Knife4jApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }

@@ -1,10 +1,10 @@
-package cn.boot.std.knife4j;
+package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Knife4jApplicationTests {
+class DemoApplicationTests {
 
     @Test
     void contextLoads() {
